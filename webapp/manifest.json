@@ -1,0 +1,173 @@
+{
+  "_version": "1.49.0",
+  "sap.app": {
+    "id": "lessons",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.10.4",
+      "toolsId": "1d4825b6-feb3-4e7f-a963-5864d8b2997c"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/sap/opu/odata/tqa/LESSONS_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "/TQA/OD_LESSONS_ANNO_MDL",
+            "annotation"
+          ],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "/TQA/OD_LESSONS_ANNO_MDL": {
+        "uri": "/zsrv_iwfnd/Annotations(TechnicalName='%2FTQA%2FOD_LESSONS_ANNO_MDL',Version='0001')/$value/",
+        "type": "ODataAnnotation",
+        "settings": {
+          "localUri": "localService//TQA/OD_LESSONS_ANNO_MDL.xml"
+        }
+      },
+      "annotation": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotation.xml",
+        "settings": {
+          "localUri": "annotations/annotation.xml"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.114.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "lessons.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {}
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "/sap/bc/ui5_ui5/tqa/launchpad/css/apps-style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "lessons.view",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "name": "RouteMain",
+          "pattern": ":?query:",
+          "target": [
+            "TargetMain"
+          ]
+        },
+        {
+          "name": "lessonDetail",
+          "pattern": "xTQAxLESSONS_DD/{objectId}",
+          "target": [
+            "lessonDetail"
+          ]
+        },
+        {
+          "name": "createLesson",
+          "pattern": "NewEntry",
+          "target": [
+            "createLesson"
+          ]
+        },
+        {
+          "name": "NotFound",
+          "pattern": "NotFound",
+          "target": "NotFound"
+        }
+      ],
+      "targets": {
+        "TargetMain": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Main",
+          "viewName": "Main"
+        },
+        "lessonDetail": {
+          "viewId": "lessonDetail",
+          "viewLevel": 2,
+          "viewName": "LessonDetail"
+        },
+        "createLesson": {
+          "viewId": "createLesson",
+          "viewLevel": 3,
+          "viewName": "CreateLesson"
+        },
+        "NotFound": {
+          "viewName": "NotFound",
+          "viewType": "XML",
+          "transition": "show",
+          "clearControlAggregation": false,
+          "viewId": "NotFound"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "lessons.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  }
+}

@@ -1,0 +1,67 @@
+<mvc:View controllerName="lessons.controller.LessonDetail"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:ux="sap.uxap"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:main="sap.ui.webc.main"
+    xmlns:core="sap.ui.core">
+    <Page id="requestDetailPage" title="{i18n>lesson} {lesson_no}" floatingFooter="true" showNavButton="false" navButtonPress="onNavBackDetail">
+        <content>
+            <Panel id="_IDGenPanel1">
+                <form:SimpleForm id="GeneralInfoContainer" editable="false" layout="ColumnLayout" title="{i18n>generalInfo}" columnsM="2" columnsL="3" columnsXL="4" class="sapUiTinyMarginTop">
+                    <form:content>
+
+                    </form:content>
+                </form:SimpleForm>
+
+                <form:SimpleForm maxContainerCols="1" layout="ResponsiveGridLayout" labelSpanL="12" labelSpanM="12" emptySpanL="0" emptySpanM="0" editable="false" title="{i18n>lessonsItems}" columnsM="2" columnsL="3" columnsXL="4">
+                    <form:content>
+                        <Table id="LessonItemsTable" width="100%" class="sapFDynamicPageAlignContent" items="{to_LessItems}" mode="SingleSelectLeft" busyIndicatorDelay="{appView>/delay}" selectionChange="onSelectionChange">
+                            <headerToolbar>
+                                <OverflowToolbar>
+                                    <ToolbarSpacer />
+                                    <Button id="AddItemLesson" text="{i18n>addLesson}" press="onOpenDriverDialog('LE')" />
+                                    <Button id="DeleteItemLesson" enabled="false" text="{i18n>deleteLesson}" press="onOpenMessageBox('LID')" />
+                                    <Button id="ExamDetail" type="Emphasized" text="{i18n>examDetail}" press="onOpenExamDetail" />
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column>
+                                    <Text text="{i18n>usrId}" />
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>driverName}" />
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>exam_date}" />
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>valid_until}" />
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>classification}" />
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>obs}" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem type="Navigation" press="onPressDriverDetail">
+                                    <cells>
+                                        <ObjectIdentifier text="{usrid}" />
+                                        <ObjectIdentifier text="{name}" />
+                                        <ObjectIdentifier text="{path: 'exam_date', formatter: '.formatter.dateFormat'}" />
+                                        <ObjectIdentifier text="{path: 'valid_until', formatter: '.formatter.dateFormat'}" />
+                                        <ObjectStatus text="{ddtext}" state="{path: 'classification', formatter: '.formatter.classification'}" />
+                                        <ObjectIdentifier text="{obs}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </form:content>
+                </form:SimpleForm>
+            </Panel>
+        </content>
+    </Page>
+</mvc:View>

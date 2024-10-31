@@ -1,0 +1,69 @@
+<mvc:View controllerName="lessons.controller.CreateLesson"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:ux="sap.uxap"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+    <Page id="requestDetailPage" title="{i18n>newEntry}" floatingFooter="false" showNavButton="{AppView>/fromLaunchpad}" navButtonPress="onNavBack">
+        <content>
+            <Panel id="_IDGenPanel1">
+                <form:SimpleForm id="GeneralInfoContainer" editable="false" layout="ColumnLayout" title="{i18n>generalInfo}" columnsM="2" columnsL="3" columnsXL="4" class="sapUiTinyMarginTop">
+                    <form:toolbar>
+                        <Toolbar>
+                            <Title text="{i18n>generalInfo}"/>
+                            <ToolbarSpacer />
+                            <Button id="SaveHeaderLesson" text="{i18n>saveLesson}" press="onSaveHeader" />
+                            <Button id="EditHeaderLesson" text="{i18n>editLesson}" visible="false" press="onPressEditHeaderLesson" />
+                            <Button id="CancelHeaderLesson" text="{i18n>cancelLesson}" visible="false" press="onPressCancelLessonHeader" />
+                        </Toolbar>
+                    </form:toolbar>
+                    <form:content>
+                        <Label text="{i18n>lesson_date}"/>
+                        <DatePicker id="lesson_date" name="lesson_date" required="true" value="{type: 'sap.ui.model.type.DateTime', formatOptions: {pattern: 'dd.MM.yyyy'}}" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy"/>
+
+                        <Label text="{i18n>init_hour}"/>
+                        <TimePicker id="init_hour" name="init_hour" required="true" valueFormat="HHmmss" displayFormat="HH:mm" placeholder="HH:mm" />
+
+                        <Label text="{i18n>end_hour}"/>
+                        <TimePicker id="end_hour" name="end_hour" required="true" valueFormat="HHmmss" displayFormat="HH:mm" placeholder="HH:mm" />
+                    </form:content>
+                </form:SimpleForm>
+                <form:SimpleForm maxContainerCols="1" layout="ResponsiveGridLayout" labelSpanL="12" labelSpanM="12" emptySpanL="0" emptySpanM="0" editable="false" title="{i18n>lessonsItems}" columnsM="2" columnsL="3" columnsXL="4">
+                    <form:content>
+                        <Table id="DriverDocumentationTable" width="100%" class="sapFDynamicPageAlignContent" mode="SingleSelectLeft" selectionChange="onSelectionChange" items="{LessonData>/items}">
+                            <headerToolbar>
+                                <OverflowToolbar>
+                                    <ToolbarSpacer />
+                                    <Button id="AddDriverToLesson" text="{i18n>addDriver}" visible="false" press="onOpenDriverDialog('LC')" />
+                                    <Button id="DeleteDriverToLesson" enabled="false" visible="false" text="{i18n>deleteDriver}" press="onOpenMessageBox('D')" />
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column>
+                                    <Text text="{i18n>usrId}" />
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>driverName}" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <ObjectIdentifier text="{LessonData>Usrid}" />
+                                        <ObjectIdentifier text="{LessonData>Name}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </form:content>
+                </form:SimpleForm>
+            </Panel>
+        </content>
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer/>
+                <Button text="{i18n>createLesson}" type="Emphasized" press="onCreateLesson" />
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>
